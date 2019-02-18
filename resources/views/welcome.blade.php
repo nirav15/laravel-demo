@@ -78,12 +78,12 @@
             @endif
             <div class="content">
                 <div class="title m-b-md">
-                    Lara
+                    Laravel
                 </div>
 
                 <div class="links">
+                    <a href="{{ route('demo') }}">Demo</a>
                     <a href="{{ route('userIndex') }}">User</a>
-                    <a href="user1">user1</a>
                     <a href="foo">welcome</a>
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>

@@ -19,12 +19,11 @@ Route::get('foo', function () {
     return 'You are welcomed by Mr.NK';
 });
 
-Route::get('user1', function () {
-    return view('index', ["hello" => 'Hello World']);
-});
-
 Route::get('user', 'UserController@index')->name('userIndex');
 
-// Route::get('blade', function () {
-//     return view('child');
-// });
+Route::prefix('demo')->group(function () {
+    Route::get('/', 'HomeController@getTitle')->name('demo');
+    Route::get('about', 'AboutController@getTitle')->name('about');
+    Route::get('contact', 'ContactController@getTitle')->name('contact');
+});
+

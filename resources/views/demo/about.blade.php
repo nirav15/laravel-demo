@@ -1,0 +1,9 @@
+@extends('layouts.default')
+
+@section('title')
+    {{ $title }}
+@stop
+
+@section('content')
+    <h1> {{ $title }} Page </h1>
+@stop
