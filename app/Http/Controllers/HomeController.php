@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function getTitle()
+    public function home()
     {
         $title = "Home";
         $viewData = [

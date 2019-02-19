@@ -1,8 +1,6 @@
 @extends('layouts.default')
 
-@section('title')
-    {{ $title }}
-@stop
+@section('title', 'About')
 
 @section('content')
     <h1> {{ $title }} Page </h1>

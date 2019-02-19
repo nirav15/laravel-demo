@@ -125,9 +125,19 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'name' => [
+            'name' => 'Please enter your :attribuute',
+            'regex' => ':attribute contain only latter',
         ],
+        'email' => [
+            'required' => 'Please enter your :attribute',
+            'email' => 'Enter valid email id',
+        ],
+        'number' => [
+            'required' => 'Please enter your :attribute',
+            'numeric' => 'enter valid :attribute',
+        ]
+
     ],
 
     /*
