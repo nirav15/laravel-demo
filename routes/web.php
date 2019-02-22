@@ -20,6 +20,8 @@ Route::get('user', 'UserController@index')->name('userIndex');
 Route::prefix('demo')->group(function () {
     Route::get('/', 'HomeController@home')->name('demo');
     Route::get('about', 'AboutController@about')->name('about');
+    Route::get('category', 'CategoryController@category')->name('category');
+    Route::post('category', 'CategoryController@categorySearch')->name('category');
     Route::get('contact', 'ContactController@contact')->name('contact');
     Route::post('contact', 'ContactController@saveContact')->name('contactValidation');
 });
