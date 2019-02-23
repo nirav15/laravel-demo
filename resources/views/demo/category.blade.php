@@ -3,36 +3,98 @@
 @section('title', 'category')
 
 @section('content')
-    <h1> {{ $title }}</h1>
-    {!! Form::open(['action' => 'CategoryController@category', 'method' => 'post']) !!}
-        {!! Form::token() !!}
-        {!! Form::label('search', 'Search:') !!}
-        {!! Form::text('search') !!}
-        {!! Form::submit('Search', null, ['class' => 'btn btn-primary']) !!}
-    {!! Form::close() !!}
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Created_at</th>
-                <th>Updated_ at</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($categories as $row)
-                <tr>
-                    <td>{{ $row->id }}</td>
-                    <td>{{ $row->name }}</td>
-                    <td>{{ $row->description }}</td>
-                    <td>{{ $row->status }}</td>
-                    <td>{{ $row->created_at }}</td>
-                    <td>{{ $row->updated_at }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-    {{ $categories->links() }}
+
+<table class="table table-hover" id="category">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>description</th>
+            <th>status</th>
+            <th>created_at</th>
+            <th>updated_at</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+</table>
 @stop
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#category').DataTable({
+            "serverSide": true,
+            'ajax': {
+                "url": "{{ route('datatable') }}",
+                "dataType": "json",
+                "type": "POST",
+                "data": {
+                    _token: "{{csrf_token()}}"
+                }
+            },
+            'columns': [{
+                    'data': 'id'
+                },
+                {
+                    'data': 'name'
+                },
+                {
+                    'data': 'description'
+                },
+                {
+                    'data': 'status',
+                    render: function(data, type, full, meta) {
+                        var status = "Active";
+                        if (data == 0) {
+                            status = "Deactive";
+                        }
+                        return status;
+                    }
+                },
+                {
+                    'data': 'created_at'
+                },
+                {
+                    'data': 'updated_at'
+                },
+                {
+                    'data': 'id',
+                    'searchable': false,
+                    'orderable': false,
+                    'render': function(data, type, full, meta) {
+                        var id = data;
+                        return `<input type="button" class="edit" value="edit" id=${id}>
+                                <input type="button" class="delete" value="delete" id="${id}">`;
+                    }
+                },
+            ],
+        });
+        $(document).on('click', '.delete', function() {
+            var id = $(this).attr('id');
+            $.ajax({
+                "type": "GET",
+                "url": "{{ route('delete') }}",
+                "data": {
+                    "id": id,
+                },
+                "success": function(data) {
+                    console.log(data);
+                }
+            });
+        });
+        $(document).on('click', '.edit', function() {
+            var id = $(this).attr('id');
+            $.ajax({
+                "type": "GET",
+                "url": "{{ route('edit') }}",
+                "data": {
+                    "id": id,
+                },
+                "success": function(data) {
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+@endpush 

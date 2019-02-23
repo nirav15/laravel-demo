@@ -13,7 +13,7 @@ class CategoryTableSeeder extends Seeder
     {
         DB::table('category')->insert([
             'name' => str_random(10),
-            'description' => str_random(10).'@gmail.com',
+            'description' => str_random(10),
             'status' => true,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
